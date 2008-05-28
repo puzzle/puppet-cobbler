@@ -82,7 +82,7 @@ class cobbler::base {
 
 define cobbler::etcconfig(){
     file{"/etc/cobbler/${name}":
-        source => [ "puppet://$server/files/cobbler/etc/${fqdn}/${name}"
+        source => [ "puppet://$server/files/cobbler/etc/${fqdn}/${name}",
                     "puppet://$server/files/cobbler/etc/${name}",
                     "puppet://$server/cobbler/etc/${name}" ],
         require => Package[cobbler],
