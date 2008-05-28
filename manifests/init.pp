@@ -14,6 +14,12 @@
 # modules_dir { \"cobbler\": }
 
 class cobbler {
+
+    # include other modules needed
+    include dhcpd 
+    include tftp
+    include apache
+    
     include cobbler::base
 }
 
@@ -21,10 +27,15 @@ class cobbler::base {
     package{'cobbler':
         ensure => present,
     }
-    service{cobbler:
+    service{cobblerd:
         ensure => running,
         enable => true,
         hasstatus => true,
         require => Package[cobbler],
+    }
+
+    file{'/etc/cron.daily/cobbler_reposync':
+        source => "puppet://$server/cobbler/cron/cobbler_reposync",
+        owner => root, group => 0, mode => 0644;
     }
 }
