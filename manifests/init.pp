@@ -71,7 +71,7 @@ class cobbler::base {
     }  
 
     # deploy all config files
-    cobbler::etconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", "legacy.ks", 
+    cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", "legacy.ks", 
                           "modules.conf", "named.template", "pxedefault.template", 
                           "pxeprofile.template", "pxesystem_ia64.template", 
                           "pxesystem.template", "rsync.exclude", "sample_end.ks", "sample.ks", 
