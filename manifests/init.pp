@@ -69,7 +69,7 @@ class cobbler::base {
     file{'/etc/cobbler/auth.conf':
         content => template("cobbler/auth.conf.erb"),
         require => Package[cobbler],
-        notify => Service[cobblerd],
+        notify => [ Service[cobblerd], Exec['cobbler_sync'] ],
         owner => root, group => 0, mode => 0644;
     }  
 
@@ -78,6 +78,7 @@ class cobbler::base {
         source => "puppet://$server/cobbler/empty",
         purge => true,
         recurse => true,
+        notify => Exec['cobbler_sync'],
         owner => root, group => 0, mode => 0755;
     }
     cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", 
@@ -94,7 +95,13 @@ class cobbler::base {
                     "puppet://$server/cobbler/snippets" ],
         purge => true,
         recurse => true,
+        notify => Exec['cobbler_sync'],
         owner => root, group => 0, mode => 0755,
+    }
+
+    exec{'cobbler_sync':
+        command => 'cobbler sync',
+        refreshonly => true,
     }
 }
 
@@ -104,7 +111,7 @@ define cobbler::etcconfig(){
                     "puppet://$server/files/cobbler/etc/${name}",
                     "puppet://$server/cobbler/etc/${name}" ],
         require => Package[cobbler],
-        notify => Service[cobblerd],
+        notify => [ Service[cobblerd], Exec['cobbler_sync'] ],
         owner => root, group => 0, mode => 0644;
     }
 }
