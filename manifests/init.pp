@@ -91,7 +91,7 @@ class cobbler::base {
     file{'/var/lib/cobbler/snippets':
         source => [ "puppet://$server/files/cobbler/snippets/${fqdn}",
                     "puppet://$server/files/cobbler/snippets/default",
-                    "puppet://$server/cobbler/snippets",
+                    "puppet://$server/cobbler/snippets" ],
         purge => true,
         recurse => true,
         owner => root, group => 0, mode => 0755,
