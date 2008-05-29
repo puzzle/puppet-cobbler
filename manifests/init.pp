@@ -29,7 +29,7 @@ class cobbler {
 }
 
 class cobbler::base {
-    package{ [ 'cobbler', 'yum-utils' ]:
+    package{ [ 'cobbler', 'yum-utils', 'python-ldap' ]:
         ensure => present,
     }
     service{cobblerd:
