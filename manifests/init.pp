@@ -27,7 +27,7 @@ class cobbler {
 }
 
 class cobbler::base {
-    package{'cobbler':
+    package{ [ 'cobbler', 'yum-utils' ]:
         ensure => present,
     }
     service{cobblerd:
@@ -39,6 +39,7 @@ class cobbler::base {
 
     file{'/etc/cron.daily/cobbler_reposync':
         source => "puppet://$server/cobbler/cron/cobbler_reposync",
+        require => Package['yum-utils'],
         owner => root, group => 0, mode => 0644;
     }
 
