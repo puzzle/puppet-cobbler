@@ -1,6 +1,6 @@
 # manifests/dhcpd.pp
 
-class dhcpd::dhcpd inherits dhcpd {
+class dhcpd::cobbler inherits dhcpd {
     include dhcpd::base::cobbler
 }
 
