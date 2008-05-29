@@ -95,7 +95,7 @@ class cobbler::base {
                     "puppet://$server/cobbler/snippets" ],
         purge => true,
         recurse => true,
-        notify => Exec['cobbler_sync'],
+        notify => [ Exec['cobbler_sync'], Service['cobblerd'] ],
         owner => root, group => 0, mode => 0755,
     }
 
