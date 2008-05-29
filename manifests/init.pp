@@ -21,7 +21,7 @@ import 'dhcpd.pp'
 class cobbler {
 
     # include other modules needed
-    include cobbler::dhcpd 
+    include dhcpd::cobbler
     include tftp
     include apache
     
