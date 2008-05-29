@@ -71,12 +71,18 @@ class cobbler::base {
         owner => root, group => 0, mode => 0644;
     }  
 
-    # deploy all config files
-    cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", "legacy.ks", 
+    # deploy all config files and ensure that there is no other unmanaged config
+    file{'/etc/cobbler':
+        source => "puppet://$server/cobbler/empty",
+        purge => true,
+        recurse => true,
+        owner => root, group => 0, mode => 0755;
+    }
+    cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", 
                           "modules.conf", "named.template", "pxedefault.template", 
                           "pxeprofile.template", "pxesystem_ia64.template", 
-                          "pxesystem.template", "rsync.exclude", "sample_end.ks", "sample.ks", 
-                          "settings", "users.conf", "users.digest", "webui-cherrypy.cfg", 
+                          "pxesystem.template", "rsync.exclude", "settings", 
+                          "users.conf", "users.digest", "webui-cherrypy.cfg", 
                           "zone.template" ] : 
     } 
 }
