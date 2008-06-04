@@ -46,7 +46,7 @@ class cobbler::base {
     }
 
     file{'/etc/httpd/conf.d/cobbler.conf':
-        source => [ "puppet://$server/files/cobbler/httpd/${fqdn}/cobbler.conf",
+        source => [ "puppet://$server/files/cobbler/${fqdn}/httpd/cobbler.conf",
                     "puppet://$server/files/cobbler/httpd/cobbler.conf",
                     "puppet://$server/cobbler/httpd/cobbler.conf" ],
         require => Package[apache],
@@ -55,7 +55,7 @@ class cobbler::base {
     }
     
     file{'/etc/httpd/conf.d/cobbler_svc.conf':
-        source => [ "puppet://$server/files/cobbler/httpd/${fqdn}/cobbler_svc.conf",
+        source => [ "puppet://$server/files/cobbler/${fqdn}/httpd/cobbler_svc.conf",
                     "puppet://$server/files/cobbler/httpd/cobbler_svc.conf",
                     "puppet://$server/cobbler/httpd/cobbler_svc.conf" ],
         require => Package[apache],
@@ -90,7 +90,7 @@ class cobbler::base {
     } 
 
     file{'/var/lib/cobbler/snippets':
-        source => [ "puppet://$server/files/cobbler/snippets/${fqdn}",
+        source => [ "puppet://$server/files/cobbler/${fqdn}/snippets",
                     "puppet://$server/files/cobbler/snippets/default",
                     "puppet://$server/cobbler/snippets" ],
         purge => true,
@@ -107,7 +107,7 @@ class cobbler::base {
 
 define cobbler::etcconfig(){
     file{"/etc/cobbler/${name}":
-        source => [ "puppet://$server/files/cobbler/etc/${fqdn}/${name}",
+        source => [ "puppet://$server/files/cobbler/${fqdn}/etc/${name}",
                     "puppet://$server/files/cobbler/etc/${name}",
                     "puppet://$server/cobbler/etc/${name}" ],
         require => Package[cobbler],
