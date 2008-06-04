@@ -1,2 +1,2 @@
 #!/bin/bash
-cobbler reposync
+cobbler reposync > /dev/null
