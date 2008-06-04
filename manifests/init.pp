@@ -96,7 +96,7 @@ class cobbler::base {
         purge => true,
         recurse => true,
         notify => [ Exec['cobbler_sync'], Service['cobblerd'] ],
-        owner => root, group => 0, mode => 0755,
+        owner => root, group => 0, mode => 0644,
     }
 
     exec{'cobbler_sync':
