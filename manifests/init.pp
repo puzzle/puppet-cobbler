@@ -17,6 +17,7 @@
 # modules_dir { \"cobbler\": }
 
 import 'dhcpd.pp'
+import 'bind.pp'
 
 class cobbler {
 
