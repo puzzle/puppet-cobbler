@@ -80,7 +80,7 @@ class cobbler::base {
         source => "puppet://$server/cobbler/empty",
         purge => true,
         recurse => true,
-        ignore => '.ignore',
+        ignore => '\.ignore',
         notify => Exec['cobbler_sync'],
         owner => root, group => 0, mode => 0755;
     }
