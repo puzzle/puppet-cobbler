@@ -41,8 +41,10 @@ class cobbler::base {
         require => Package[cobbler],
     }
 
-    file{'/etc/cron.daily/cobbler_reposync':
-        source => "puppet://$server/cobbler/cron/cobbler_reposync",
+    file{'/etc/cron.d/cobbler_reposync':
+        source => [ "puppet://$server/files/cobbler/cron/${fqdn}/cobbler_reposync",
+                    "puppet://$server/files/cobbler/cron/cobbler_reposync",
+                    "puppet://$server/cobbler/cron/cobbler_reposync" ],
         require => Package['yum-utils'],
         owner => root, group => 0, mode => 0744;
     }
