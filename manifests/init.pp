@@ -91,7 +91,7 @@ class cobbler::base {
                           "pxeprofile.template", "pxesystem_ia64.template", 
                           "pxesystem.template", "rsync.exclude", "settings", 
                           "users.conf", "users.digest", "webui-cherrypy.cfg", 
-                          "zone.template" ] : 
+                          "zone.template", "pxelocal.template" ] : 
     } 
 
     file{'/var/lib/cobbler/snippets':
