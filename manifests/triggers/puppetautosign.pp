@@ -5,6 +5,7 @@ class cobbler::triggers::puppetautosign {
         source => [ "puppet://$server/files/cobbler/triggers/add/system/post/${fqdn}/puppetautosign.py",
                     "puppet://$server/files/cobbler/triggers/add/system/post/puppetautosign.py",
                     "puppet://$server/cobbler/triggers/add/system/post/puppetautosign.py" ],
+        require => Package['cobbler'],
         owner => root, group => 0, mode => 0755;
     }
 
