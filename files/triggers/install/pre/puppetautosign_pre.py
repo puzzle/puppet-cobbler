@@ -5,8 +5,8 @@ from cobbler import api
 
 cobbler_api = api.BootAPI()
 systems = cobbler_api.systems()
-boxes = systems.find(netboot_enabled="True",return_list=True)
-f=open('/etc/puppet/autosign.conf', 'w')
-for box in boxes:
+box = systems.find(sys.argv[2])
+if box!=None:
+    f=open('/srv/puppet/etc/autosign.conf', 'a')
     f.write(box.interfaces["intf0"]["hostname"]+"\n")
-f.close()
+    f.close()
