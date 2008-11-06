@@ -2,9 +2,9 @@
 
 class cobbler::triggers::puppetautosign {
     file{'/var/lib/cobbler/triggers/install/pre/puppetautosign_pre.py':
-        source => [ "puppet://$server/files/cobbler/triggers/install/pre/${fqdn}/puppetautosign_post.py",
-                    "puppet://$server/files/cobbler/triggers/install/pre/puppetautosign_post.py",
-                    "puppet://$server/cobbler/triggers/install/pre/puppetautosign_post.py" ],
+        source => [ "puppet://$server/files/cobbler/triggers/install/pre/${fqdn}/puppetautosign_pre.py",
+                    "puppet://$server/files/cobbler/triggers/install/pre/puppetautosign_pre.py",
+                    "puppet://$server/cobbler/triggers/install/pre/puppetautosign_pre.py" ],
         require => Package['cobbler'],
         owner => root, group => 0, mode => 0755;
     }
