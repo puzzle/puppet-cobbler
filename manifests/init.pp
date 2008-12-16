@@ -14,8 +14,6 @@
 # Variables to set:
 # - $cobbler_auth_conf_pwd => your password to the auth_config
 
-# modules_dir { \"cobbler\": }
-
 import 'dhcpd.pp'
 import 'bind.pp'
 
@@ -31,7 +29,7 @@ class cobbler {
 }
 
 class cobbler::base {
-    package{ [ 'cobbler', 'yum-utils', 'python-ldap', 'rhpl' ]:
+    package{ [ 'cobbler', 'yum-utils', 'python-ldap', 'rhpl', 'genisoimage' ]:
         ensure => present,
     }
     service{cobblerd:
@@ -87,11 +85,12 @@ class cobbler::base {
         owner => root, group => 0, mode => 0755;
     }
     cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", 
-                          "modules.conf", "named.template", "pxedefault.template", 
-                          "pxeprofile.template", "pxesystem_ia64.template", 
-                          "pxesystem.template", "rsync.exclude", "settings", 
-                          "users.conf", "users.digest", "webui-cherrypy.cfg", 
-                          "zone.template", "pxelocal.template" ] : 
+                            "modules.conf", "named.template", "pxe/pxedefault.template", 
+                            "pxe/pxelocal.template", "pxesystem_ppc.template", 
+                            "pxe/pxesystem_s390x.template", "pxe/pxeprofile.template", 
+                            "pxe/pxesystem_ia64.template", "pxe/pxesystem.template", 
+                            "rsync.exclude", "settings", "users.conf", "users.digest", 
+                            "webui-cherrypy.cfg", "zone.template", "pxelocal.template" ] : 
     } 
 
     file{'/var/lib/cobbler/snippets':
