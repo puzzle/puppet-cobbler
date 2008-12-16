@@ -86,11 +86,11 @@ class cobbler::base {
     }
     cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", 
                             "modules.conf", "named.template", "pxe/pxedefault.template", 
-                            "pxe/pxelocal.template", "pxesystem_ppc.template", 
+                            "pxe/pxelocal.template", "pxe/pxesystem_ppc.template", 
                             "pxe/pxesystem_s390x.template", "pxe/pxeprofile.template", 
                             "pxe/pxesystem_ia64.template", "pxe/pxesystem.template", 
                             "rsync.exclude", "settings", "users.conf", "users.digest", 
-                            "webui-cherrypy.cfg", "zone.template", "pxelocal.template" ] : 
+                            "webui-cherrypy.cfg", "zone.template" ]:
     } 
 
     file{'/var/lib/cobbler/snippets':
