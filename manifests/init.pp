@@ -76,7 +76,7 @@ class cobbler::base {
     }  
 
     # deploy all config files and ensure that there is no other unmanaged config
-    file{'/etc/cobbler':
+    file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power']:
         source => "puppet://$server/cobbler/empty",
         purge => true,
         recurse => true,
@@ -85,12 +85,21 @@ class cobbler::base {
         owner => root, group => 0, mode => 0755;
     }
     cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", 
-                            "modules.conf", "named.template", "pxe/pxedefault.template", 
-                            "pxe/pxelocal.template", "pxe/pxesystem_ppc.template", 
-                            "pxe/pxesystem_s390x.template", "pxe/pxeprofile.template", 
-                            "pxe/pxesystem_ia64.template", "pxe/pxesystem.template", 
+                            "modules.conf", "named.template", 
                             "rsync.exclude", "settings", "users.conf", "users.digest", 
-                            "webui-cherrypy.cfg", "zone.template", "cheetah_macros", "acls.conf" ]:
+                            "webui-cherrypy.cfg", "zone.template", "cheetah_macros", "acls.conf",
+                            # pxe/
+                            "pxe/pxedefault.template",  "pxe/pxelocal.template", 
+                            "pxe/pxesystem_ppc.template", "pxe/pxesystem_s390x.template", 
+                            "pxe/pxeprofile.template", "pxe/pxesystem_ia64.template", 
+                            "pxe/pxesystem.template", 
+                            # power/
+                            "power/power_apc_snmp.template", "power/power_bladecenter.template",
+                            "power/power_bullpap.template", "power/power_drac.template",
+                            "power/power_ether_wake.template", "power/power_ilo.template",
+                            "power/power_ipmilan.template", "power/power_ipmitool.template",
+                            "power/power_lpar.template", "power/power_rsa.template",
+                            "power/power_virsh.template", "power/power_wti.template" ]:
     } 
 
     file{'/var/lib/cobbler/snippets':
