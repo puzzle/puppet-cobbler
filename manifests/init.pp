@@ -90,7 +90,7 @@ class cobbler::base {
                             "pxe/pxesystem_s390x.template", "pxe/pxeprofile.template", 
                             "pxe/pxesystem_ia64.template", "pxe/pxesystem.template", 
                             "rsync.exclude", "settings", "users.conf", "users.digest", 
-                            "webui-cherrypy.cfg", "zone.template", "cheetah_macros" ]:
+                            "webui-cherrypy.cfg", "zone.template", "cheetah_macros", "acls.conf" ]:
     } 
 
     file{'/var/lib/cobbler/snippets':
