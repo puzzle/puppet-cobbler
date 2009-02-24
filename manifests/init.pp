@@ -55,6 +55,14 @@ class cobbler::base {
         notify => Service[apache],
         owner => root, group => 0, mode => 0644;
     }
+     file{'/etc/httpd/conf.d/cobbler_svc.conf':
+        source => [ "puppet://$server/files/cobbler/${fqdn}/httpd/cobbler_svc.conf",
+                    "puppet://$server/files/cobbler/httpd/cobbler_svc.conf",
+                    "puppet://$server/cobbler/httpd/cobbler_svc.conf" ],
+        require => Package[apache],
+        notify => Service[apache],
+        owner => root, group => 0, mode => 0644;
+    }
     
     case $cobbler_auth_conf_pwd {
         '': { fail("You need to define the cobbler_auth_conf_pwd variable to set a password!") }
