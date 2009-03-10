@@ -9,4 +9,8 @@ class bind::base::cobbler inherits bind::base {
         ensure => stopped,
         enable => false,
     }
+
+    File['named.conf', 'named.local', 'zone_files']{
+        ensure => absent,
+    }
 }
