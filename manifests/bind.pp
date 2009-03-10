@@ -10,7 +10,14 @@ class bind::base::cobbler inherits bind::base {
         enable => false,
     }
 
-    File['named.conf', 'named.local', 'zone_files']{
+    File['named.conf', 'named.local']{
         ensure => absent,
+    }
+    File['zone_files']{
+        ensure => directory,
+        source => undef,
+        force => false,
+        purge => false,
+        recursive => false,
     }
 }
