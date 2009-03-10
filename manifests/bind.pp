@@ -18,6 +18,6 @@ class bind::base::cobbler inherits bind::base {
         source => undef,
         force => false,
         purge => false,
-        recursive => false,
+        recurse => false,
     }
 }
