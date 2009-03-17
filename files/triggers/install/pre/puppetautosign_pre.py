@@ -4,9 +4,8 @@ import sys
 from cobbler import api
 
 cobbler_api = api.BootAPI()
-systems = cobbler_api.systems()
-box = systems.find(sys.argv[2])
+box = cobbler_api.systems().find(name=sys.argv[2])
 if box!=None:
     f=open('/etc/puppet/autosign.conf', 'a')
-    f.write(box.interfaces["intf0"]["hostname"]+"\n")
+    f.write(box.interfaces["eth0"]["dns_name"]+"\n")
     f.close()
