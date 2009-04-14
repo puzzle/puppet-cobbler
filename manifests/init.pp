@@ -114,6 +114,7 @@ class cobbler::base {
     exec{'cobbler_sync':
         command => 'cobbler sync',
         refreshonly => true,
+        require => Package['cobbler', 'genisoimage', 'syslinux'],
     }
 }
 
