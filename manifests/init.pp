@@ -5,9 +5,9 @@
 # Marcel Härry haerry+puppet(at)puzzle.ch
 # Simon Josi josi+puppet(at)puzzle.ch
 #
-# This program is free software; you can redistribute 
-# it and/or modify it under the terms of the GNU 
-# General Public License version 3 as published by 
+# This program is free software; you can redistribute
+# it and/or modify it under the terms of the GNU
+# General Public License version 3 as published by
 # the Free Software Foundation.
 #
 #
@@ -24,12 +24,12 @@ class cobbler {
     include bind::cobbler
     include tftp
     include apache
-    
+
     include cobbler::base
 }
 
 class cobbler::base {
-    package{ [ 'cobbler', 'yum-utils', 'python-ldap', 'rhpl', 'genisoimage' ]:
+    package{ [ 'cobbler', 'yum-utils', 'python-ldap', 'rhpl', 'genisoimage', 'syslinux' ]:
         ensure => present,
     }
     service{cobblerd:
@@ -63,16 +63,16 @@ class cobbler::base {
         notify => Service[apache],
         owner => root, group => 0, mode => 0644;
     }
-    
+
     case $cobbler_auth_conf_pwd {
-        '': { fail("You need to define the cobbler_auth_conf_pwd variable to set a password!") }
+        '': { fail("You need to define the cobbler_auth_conf_pwd variable on ${fqdn} to set a password!") }
     }
     file{'/etc/cobbler/auth.conf':
-        content => template("cobbler/auth.conf.erb"),
+        content => template('cobbler/auth.conf.erb'),
         require => Package[cobbler],
         notify => [ Service[cobblerd], Exec['cobbler_sync'] ],
         owner => root, group => 0, mode => 0644;
-    }  
+    }
 
     # deploy all config files and ensure that there is no other unmanaged config
     file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power']:
@@ -83,23 +83,23 @@ class cobbler::base {
         notify => Exec['cobbler_sync'],
         owner => root, group => 0, mode => 0755;
     }
-    cobbler::etcconfig{  [ "default.ks", "dhcp.template", "dnsmasq.template", 
-                            "modules.conf", "named.template", 
-                            "rsync.exclude", "settings", "users.conf", "users.digest", 
-                            "webui-cherrypy.cfg", "zone.template", "cheetah_macros", "acls.conf",
+    cobbler::etcconfig{  [ 'default.ks', 'dhcp.template', 'dnsmasq.template',
+                            'modules.conf', 'named.template', 'tftpd-rules.template'
+                            'rsync.exclude', 'settings', 'users.conf', 'users.digest',
+                            'webui-cherrypy.cfg', 'zone.template', 'cheetah_macros', 'acls.conf',
                             # pxe/
-                            "pxe/pxedefault.template",  "pxe/pxelocal.template", 
-                            "pxe/pxesystem_ppc.template", "pxe/pxesystem_s390x.template", 
-                            "pxe/pxeprofile.template", "pxe/pxesystem_ia64.template", 
-                            "pxe/pxesystem.template", 
+                            'pxe/pxedefault.template',  'pxe/pxelocal.template',
+                            'pxe/pxesystem_ppc.template', 'pxe/pxesystem_s390x.template',
+                            'pxe/pxeprofile.template', 'pxe/pxesystem_ia64.template',
+                            'pxe/pxesystem.template',
                             # power/
-                            "power/power_apc_snmp.template", "power/power_bladecenter.template",
-                            "power/power_bullpap.template", "power/power_drac.template",
-                            "power/power_ether_wake.template", "power/power_ilo.template",
-                            "power/power_ipmilan.template", "power/power_ipmitool.template",
-                            "power/power_lpar.template", "power/power_rsa.template",
-                            "power/power_virsh.template", "power/power_wti.template" ]:
-    } 
+                            'power/power_apc_snmp.template', 'power/power_bladecenter.template',
+                            'power/power_bullpap.template', 'power/power_drac.template',
+                            'power/power_ether_wake.template', 'power/power_ilo.template',
+                            'power/power_ipmilan.template', 'power/power_ipmitool.template',
+                            'power/power_lpar.template', 'power/power_rsa.template',
+                            'power/power_virsh.template', 'power/power_wti.template' ]:
+    }
 
     file{'/var/lib/cobbler/snippets':
         source => [ "puppet://$server/files/cobbler/${fqdn}/snippets",
