@@ -84,7 +84,7 @@ class cobbler::base {
         owner => root, group => 0, mode => 0755;
     }
     cobbler::etcconfig{  [ 'default.ks', 'dhcp.template', 'dnsmasq.template',
-                            'modules.conf', 'named.template', 'tftpd-rules.template'
+                            'modules.conf', 'named.template', 'tftpd-rules.template',
                             'rsync.exclude', 'settings', 'users.conf', 'users.digest',
                             'webui-cherrypy.cfg', 'zone.template', 'cheetah_macros', 'acls.conf',
                             # pxe/
