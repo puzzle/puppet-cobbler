@@ -12,7 +12,6 @@ class bind::base::cobbler inherits bind::base {
 
     File['named.conf', 'named.local']{
         source => undef,
-        ensure => absent,
     }
     File['zone_files']{
         ensure => directory,
