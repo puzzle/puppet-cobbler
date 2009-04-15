@@ -75,7 +75,7 @@ class cobbler::base {
     }
 
     # deploy all config files and ensure that there is no other unmanaged config
-    file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power']:
+    file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power', '/etc/cobbler/reporting' ]:
         source => "puppet://$server/cobbler/empty",
         purge => true,
         recurse => true,
@@ -98,7 +98,9 @@ class cobbler::base {
                             'power/power_ether_wake.template', 'power/power_ilo.template',
                             'power/power_ipmilan.template', 'power/power_ipmitool.template',
                             'power/power_lpar.template', 'power/power_rsa.template',
-                            'power/power_virsh.template', 'power/power_wti.template' ]:
+                            'power/power_virsh.template', 'power/power_wti.template',
+                            # reporting
+                            'reporting/build_report_email.template' ]:
     }
 
     file{'/var/lib/cobbler/snippets':
