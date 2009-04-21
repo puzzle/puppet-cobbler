@@ -123,6 +123,7 @@ class cobbler::base {
 define cobbler::etcconfig(){
     file{"/etc/cobbler/${name}":
         source => [ "puppet://$server/files/cobbler/${fqdn}/etc/${name}",
+                    "puppet://$server/files/cobbler/${cobbler_env}/etc/${name}",
                     "puppet://$server/files/cobbler/etc/${name}",
                     "puppet://$server/cobbler/etc/${name}" ],
         require => Package[cobbler],
