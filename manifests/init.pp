@@ -21,7 +21,7 @@ class cobbler {
 
     # include other modules needed
     include dhcpd::cobbler
-    include bind::cobbler
+    include bind
     include tftp
     include apache
 

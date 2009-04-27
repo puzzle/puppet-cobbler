@@ -1,10 +1,10 @@
 # manifests/bind.pp
 
-class bind::cobbler inherits bind {
-    include bind::base::cobbler
+class bind::cobbler::unmanaged inherits bind {
+    include bind::base::cobbler::unmanaged
 }
 
-class bind::base::cobbler inherits bind::base {
+class bind::base::cobbler::unmanaged inherits bind::base {
     Service['bind']{
         ensure => stopped,
         enable => false,
@@ -21,3 +21,4 @@ class bind::base::cobbler inherits bind::base {
         recurse => false,
     }
 }
+
