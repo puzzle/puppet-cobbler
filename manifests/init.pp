@@ -121,6 +121,10 @@ class cobbler::base {
 }
 
 define cobbler::etcconfig(){
+    case $cobbler_env {
+        '': { $cobbler_env = 'cobbler_env_is_not_set' }
+    }
+
     file{"/etc/cobbler/${name}":
         source => [ "puppet://$server/files/cobbler/${fqdn}/etc/${name}",
                     "puppet://$server/files/cobbler/${cobbler_env}/etc/${name}",
