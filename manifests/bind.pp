@@ -1,17 +1,23 @@
 # manifests/bind.pp
 
-class bind::cobbler::unmanaged inherits bind {
+class bind::cobbler::managed inherits bind {
+    include bind::base::cobbler::managed
+}
+
+class bind::cobbler::unmanaged inherits bind::cobbler::managed {
     include bind::base::cobbler::unmanaged
 }
 
-class bind::base::cobbler::unmanaged inherits bind::base {
+class bind::base::cobbler::managed inherits bind::base {
+    File['named.conf']{
+        source => undef,
+    }
+}
+
+class bind::base::cobbler::unmanaged inherits bind::base::cobbler::managed {
     Service['bind']{
         ensure => stopped,
         enable => false,
-    }
-
-    File['named.conf', 'named.local']{
-        source => undef,
     }
     File['zone_files']{
         ensure => directory,
@@ -21,4 +27,3 @@ class bind::base::cobbler::unmanaged inherits bind::base {
         recurse => false,
     }
 }
-

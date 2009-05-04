@@ -18,10 +18,9 @@ import 'dhcpd.pp'
 import 'bind.pp'
 
 class cobbler {
-
     # include other modules needed
     include dhcpd::cobbler
-    include bind
+    include bind::base::cobbler::managed
     include tftp
     include apache
 
