@@ -74,7 +74,7 @@ class cobbler::base {
     }
 
     # deploy all config files and ensure that there is no other unmanaged config
-    file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power', '/etc/cobbler/reporting' ]:
+    file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power', '/etc/cobbler/reporting', '/etc/cobbler/zone_templates' ]:
         ensure => directory,
         source => "puppet://$server/cobbler/empty",
         purge => true,
