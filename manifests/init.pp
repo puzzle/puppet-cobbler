@@ -105,6 +105,7 @@ class cobbler::base {
 
     file{'/var/lib/cobbler/snippets':
         source => [ "puppet://$server/files/cobbler/${fqdn}/snippets",
+                    "puppet://$server/files/cobbler/${cobbler_env}/snippets",
                     "puppet://$server/files/cobbler/snippets/default",
                     "puppet://$server/cobbler/snippets" ],
         purge => true,
