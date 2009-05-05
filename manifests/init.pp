@@ -104,6 +104,10 @@ class cobbler::base {
                             'reporting/build_report_email.template' ]:
     }
 
+    cobbler::kickstartfile{ ['default.ks', 'legacy.ks', 'pxerescue.ks', 'sample_end.ks',
+        'sample.ks', 'sample.seed' ]:
+    }
+
     file{'/var/lib/cobbler/snippets':
         source => [ "puppet://$server/files/cobbler/${fqdn}/snippets",
                     "puppet://$server/files/cobbler/${cobbler_env}/snippets",
