@@ -74,7 +74,8 @@ class cobbler::base {
     }
 
     # deploy all config files and ensure that there is no other unmanaged config
-    file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power', '/etc/cobbler/reporting', '/etc/cobbler/zone_templates' ]:
+    file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power', '/etc/cobbler/reporting',
+            '/etc/cobbler/zone_templates', '/var/lib/cobbler/kickstarts' ]:
         ensure => directory,
         source => "puppet://$server/cobbler/empty",
         purge => true,
@@ -131,6 +132,21 @@ define cobbler::etcconfig(){
                     "puppet://$server/files/cobbler/${cobbler_env}/etc/${name}",
                     "puppet://$server/files/cobbler/etc/${name}",
                     "puppet://$server/cobbler/etc/${name}" ],
+        require => Package[cobbler],
+        notify => [ Service[cobblerd], Exec['cobbler_sync'] ],
+        owner => root, group => 0, mode => 0644;
+    }
+}
+
+define cobbler::kickstartfile(){
+    case $cobbler_env {
+        '': { $cobbler_env = 'cobbler_env_is_not_set' }
+    }
+    file{"/var/lib/cobbler/kickstarts/${name}":
+        source => [ "puppet://$server/files/cobbler/${fqdn}/kickstarts/${name}",
+                    "puppet://$server/files/cobbler/${cobbler_env}/kickstarts/${name}",
+                    "puppet://$server/files/cobbler/kickstarts/${name}",
+                    "puppet://$server/cobbler/kickstarts/${name}" ],
         require => Package[cobbler],
         notify => [ Service[cobblerd], Exec['cobbler_sync'] ],
         owner => root, group => 0, mode => 0644;
