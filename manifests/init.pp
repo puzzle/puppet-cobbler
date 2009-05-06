@@ -38,21 +38,6 @@ class cobbler::base {
         require => Package[cobbler],
     }
 
-    file{'/opt/bin/reposync.sh':
-        source => [ "puppet://$server/files/cobbler/scripts/${fqdn}/reposync.sh",
-                    "puppet://$server/files/cobbler/scripts/reposync.sh",
-                    "puppet://$server/cobbler/scripts/reposync.sh" ],
-        require => Package['yum-utils'],
-        owner => root, group => 0, mode => 0700;
-    }
-    file{'/etc/cron.d/cobbler_reposync':
-        source => [ "puppet://$server/files/cobbler/cron/${fqdn}/cobbler_reposync",
-                    "puppet://$server/files/cobbler/cron/cobbler_reposync",
-                    "puppet://$server/cobbler/cron/cobbler_reposync" ],
-        require => File['/opt/bin/reposync.sh'],
-        owner => root, group => 0, mode => 0744;
-    }
-
     file{'/etc/httpd/conf.d/cobbler.conf':
         source => [ "puppet://$server/files/cobbler/${fqdn}/httpd/cobbler.conf",
                     "puppet://$server/files/cobbler/httpd/cobbler.conf",
