@@ -1,2 +1,0 @@
-#!/bin/bash
-30 0 * * * root /opt/bin/reposync.sh

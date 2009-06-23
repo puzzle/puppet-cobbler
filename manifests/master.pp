@@ -12,10 +12,8 @@ class cobbler::master {
         owner => root, group => 0, mode => 0700;
     }
     file{'/etc/cron.d/cobbler_reposync':
-        source => [ "puppet://$server/files/cobbler/cron/${fqdn}/cobbler_reposync",
-                    "puppet://$server/files/cobbler/cron/cobbler_reposync",
-                    "puppet://$server/cobbler/cron/cobbler_reposync" ],
+        content => "30 0 * * * root /opt/bin/reposync.sh\n",
         require => File['/opt/bin/reposync.sh'],
-        owner => root, group => 0, mode => 0744;
+        owner => root, group => 0, mode => 0644;
     }
 }
