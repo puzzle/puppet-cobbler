@@ -1,15 +1,9 @@
 # manifests/dhcpd.pp
 
-class dhcpd::cobbler inherits dhcpd {
-    include dhcpd::base::cobbler
+class cobbler::dhcpd inherits dhcpd {
+  include cobbler::dhcpd::base
 
-    package{'dhcdbd':
-        ensure => installed,
-    }
-}
-
-class dhcpd::base::cobbler inherits dhcpd::base {
-    File['/etc/dhcpd.conf']{
-        replace => false,
-    }
+  package{'dhcdbd':
+    ensure => installed,
+  }
 }
