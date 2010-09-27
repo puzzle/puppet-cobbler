@@ -73,10 +73,10 @@ class cobbler::base {
   }
  
   file{'/var/lib/cobbler/snippets':
-    source => [ "puppet://$server/files/cobbler/${fqdn}/snippets",
-                "puppet://$server/files/cobbler/${cobbler_env}/snippets",
-                "puppet://$server/files/cobbler/snippets/default",
-                "puppet://$server/cobbler/snippets" ],
+    source => [ "puppet:///modules/site-cobbler/${fqdn}/snippets",
+                "puppet:///modules/site-cobbler/${cobbler_env}/snippets",
+                "puppet:///modules/site-cobbler/snippets/default",
+                "puppet:///modules/cobbler/snippets" ],
     purge => true,
     recurse => true,
     notify => [ Exec['cobbler_sync'], Service['cobblerd'] ],
