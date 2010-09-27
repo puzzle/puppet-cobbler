@@ -1,7 +1,7 @@
 # manifests/dhcpd.pp
 
 class cobbler::dhcpd {
-  include dhcp::noreplace
+  include dhcpd::noreplace
 
   package{'dhcdbd':
     ensure => installed,
