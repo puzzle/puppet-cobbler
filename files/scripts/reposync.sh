@@ -50,7 +50,9 @@ function run {
 }
 
 log "Starting"
-mv $LOGFILE $LOGFILE.1
+if [ -f $LOGFILE ]; then
+  mv $LOGFILE $LOGFILE.1
+fi
 
 for name in `cobbler repo list`
 do
