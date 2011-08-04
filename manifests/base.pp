@@ -40,10 +40,8 @@ class cobbler::base {
   file{ ['/etc/cobbler', '/etc/cobbler/pxe', '/etc/cobbler/power', '/etc/cobbler/reporting',
       '/etc/cobbler/zone_templates', '/var/lib/cobbler/kickstarts' ]:
     ensure => directory,
-    source => "puppet:///modules/common/empty",
     purge => true,
     recurse => true,
-    ignore => '\.ignore',
     notify => Exec['cobbler_sync'],
     owner => root, group => 0, mode => 0755;
   }
