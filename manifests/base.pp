@@ -1,5 +1,5 @@
 class cobbler::base {
-  package{ [ 'cobbler', 'yum-utils', 'python-ldap', 'rhpl', 'genisoimage', 'syslinux' ]:
+  package{ [ 'cobbler', 'python-ldap', 'rhpl', 'genisoimage', 'syslinux' ]:
     ensure => present,
   }
   service{cobblerd:

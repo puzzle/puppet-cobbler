@@ -3,6 +3,7 @@
 # sync scripts for the repositories
 class cobbler::master {
   include cobbler
+  include yum::utils
 
   file{'/opt/bin/reposync.sh':
     source => [ "puppet:///modules/site-cobbler/scripts/${fqdn}/reposync.sh",
