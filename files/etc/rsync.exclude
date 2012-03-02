@@ -10,3 +10,4 @@
 **/kde-i18n**
 pool/**/*.dsc
 pool/**/*.gz
+**/.~tmp~
