@@ -1,19 +1,20 @@
 
 cobbler module
 
-Copyright 2008, Puzzle ITC
+Copyright 2012, Puzzle ITC
 Marcel Härry haerry+puppet(at)puzzle.ch
 Simon Josi josi+puppet(at)puzzle.ch
+
+Update September 2012:
+For Cobbler Version 2.2.3, CentOS 6
+Simplified Definitions
+by Philipp Gassmann gassmann(at)puzzle.ch
 
 This program is free software; you can redistribute 
 it and/or modify it under the terms of the GNU 
 General Public License version 3 as published by 
 the Free Software Foundation.
 
-
-==  Variables ==
-- $cobbler_auth_conf_pwd => your password to the auth_config
-
 == config files ==
 
-Default config files are taken from version 1.0
+Default config files are taken from Cobbler 2.2.3 on CentOS 6

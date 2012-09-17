@@ -1,1 +1,0 @@
-/sbin/ether-wake -i eth0 $power_address

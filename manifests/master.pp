@@ -6,8 +6,8 @@ class cobbler::master {
   include yum::utils
 
   file{'/opt/bin/reposync.sh':
-    source => [ "puppet:///modules/site-cobbler/scripts/${fqdn}/reposync.sh",
-                "puppet:///modules/site-cobbler/scripts/reposync.sh",
+    source => [ "puppet:///modules/site_cobbler/scripts/${fqdn}/reposync.sh",
+                "puppet:///modules/site_cobbler/scripts/reposync.sh",
                 "puppet:///modules/cobbler/scripts/reposync.sh" ],
     require => Package['yum-utils'],
     owner => root, group => 0, mode => 0700;

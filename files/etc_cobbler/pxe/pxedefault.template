@@ -1,0 +1,15 @@
+DEFAULT menu
+PROMPT 0
+MENU TITLE Cobbler | http://cobbler.github.com/
+TIMEOUT 200
+TOTALTIMEOUT 6000
+ONTIMEOUT $pxe_timeout_profile
+
+LABEL local
+        MENU LABEL (local)
+        MENU DEFAULT
+        LOCALBOOT -1
+
+$pxe_menu_items
+
+MENU end
