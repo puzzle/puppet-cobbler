@@ -15,7 +15,9 @@
 # General Public License version 3 as published by
 # the Free Software Foundation.
 
-class cobbler {
+class cobbler(
+  $env = 'cobbler_env_is_not_set'
+){
   # include other modules needed
   include cobbler::bind::managed
   include tftp
@@ -23,7 +25,7 @@ class cobbler {
   include dhcpd::noreplace
   include git::base
 
-  package{ [ 'cobbler', 'cobbler-web', 'python-ldap', 'genisoimage', 'pykickstart']:
+  package{ [ 'cobbler', 'cobbler-web', 'genisoimage', 'pykickstart']:
     ensure => present,
   }
 
@@ -45,22 +47,18 @@ class cobbler {
 
   # deploy all config files and ensure that there is no other unmanaged config
 
-  case $cobbler_env {
-    '': { $cobbler_env = 'cobbler_env_is_not_set' }
-  }
-
   file{ 
     '/etc/cobbler':
       ensure        => directory,
       purge         => true,
       recurse       => true,
       sourceselect  => all,
-      source        => [ "puppet:///modules/site_cobbler/${fqdn}/etc_cobbler",
-                         "puppet:///modules/site_cobbler/${cobbler_env}/etc_cobbler",
-                         "puppet:///modules/site_cobbler/etc_cobbler",
-                         "puppet:///modules/cobbler/etc_cobbler" ],
+      source        => [ "puppet:///modules/site_cobbler/${fqdn}/etc",
+                         "puppet:///modules/site_cobbler/${cobbler::env}/etc",
+                         "puppet:///modules/site_cobbler/etc",
+                         "puppet:///modules/cobbler/etc" ],
       notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
-      owner         => root, group => 0, mode => 0755;
+      owner         => root, group => 0, mode => 0644;
 
     '/var/lib/cobbler/kickstarts/':
       require       => Package[cobbler],
@@ -69,7 +67,7 @@ class cobbler {
       recurse       => true,
       sourceselect  => all,
       source        => [ "puppet:///modules/site_cobbler/${fqdn}/kickstarts",
-                         "puppet:///modules/site_cobbler/${cobbler_env}/kickstarts",
+                         "puppet:///modules/site_cobbler/${cobbler::env}/kickstarts",
                          "puppet:///modules/site_cobbler/kickstarts",
                          "puppet:///modules/cobbler/kickstarts" ],
       notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
@@ -81,7 +79,7 @@ class cobbler {
       recurse       => true,
       sourceselect  => all,
       source        => [ "puppet:///modules/site_cobbler/${fqdn}/snippets",
-                         "puppet:///modules/site_cobbler/${cobbler_env}/snippets",
+                         "puppet:///modules/site_cobbler/${cobbler::env}/snippets",
                          "puppet:///modules/site_cobbler/snippets/default",
                          "puppet:///modules/cobbler/snippets" ],
       notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
