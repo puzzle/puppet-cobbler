@@ -36,10 +36,19 @@ class cobbler(
     require   => Package[cobbler],
   }
 
-  file{'/etc/httpd/conf.d/cobbler.conf':
+  file{
+  '/etc/httpd/conf.d/cobbler.conf':
     source  => [ "puppet:///modules/site_cobbler/${fqdn}/httpd/cobbler.conf",
                 "puppet:///modules/site_cobbler/httpd/cobbler.conf",
                 "puppet:///modules/cobbler/httpd/cobbler.conf" ],
+    require => Package[apache],
+    notify  => Service[apache],
+    owner   => root, group => 0, mode => 0644;
+
+  '/etc/httpd/conf.d/cobbler_web.conf':
+    source  => [ "puppet:///modules/site_cobbler/${fqdn}/httpd/cobbler_web.conf",
+                "puppet:///modules/site_cobbler/httpd/cobbler_web.conf",
+                "puppet:///modules/cobbler/httpd/cobbler_web.conf" ],
     require => Package[apache],
     notify  => Service[apache],
     owner   => root, group => 0, mode => 0644;
