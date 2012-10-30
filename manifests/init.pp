@@ -89,8 +89,20 @@ class cobbler(
       sourceselect  => all,
       source        => [ "puppet:///modules/site_cobbler/${fqdn}/snippets",
                          "puppet:///modules/site_cobbler/${cobbler::env}/snippets",
-                         "puppet:///modules/site_cobbler/snippets/default",
+                         "puppet:///modules/site_cobbler/snippets",
                          "puppet:///modules/cobbler/snippets" ],
+      notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
+      owner         => root, group => 0, mode => 0644;
+
+    '/var/lib/cobbler/triggers':
+      ensure        => directory,
+      purge         => true,
+      recurse       => true,
+      sourceselect  => all,
+      source        => [ "puppet:///modules/site_cobbler/${fqdn}/triggers",
+                         "puppet:///modules/site_cobbler/${cobbler::env}/triggers",
+                         "puppet:///modules/site_cobbler/triggers",
+                         "puppet:///modules/cobbler/triggers" ],
       notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
       owner         => root, group => 0, mode => 0644;
   }
