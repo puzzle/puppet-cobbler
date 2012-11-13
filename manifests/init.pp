@@ -69,6 +69,12 @@ class cobbler(
       notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
       owner         => root, group => 0, mode => 0644;
 
+    '/var/lib/cobbler':
+      require   => Package['cobbler'],
+      ensure    => directory,
+      before    => Service['cobblerd'],
+      owner     => root, group => 0, mode => 0644;
+
     '/var/lib/cobbler/kickstarts/':
       require       => Package[cobbler],
       ensure        => directory,
