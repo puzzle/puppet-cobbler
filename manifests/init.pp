@@ -110,7 +110,7 @@ class cobbler(
                          "puppet:///modules/site_cobbler/triggers",
                          "puppet:///modules/cobbler/triggers" ],
       notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
-      owner         => root, group => 0, mode => 0644;
+      owner         => root, group => 0, mode => 0755;
   }
 
   exec{'cobbler_sync':
