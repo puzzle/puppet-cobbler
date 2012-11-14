@@ -111,6 +111,12 @@ class cobbler(
                          "puppet:///modules/cobbler/triggers" ],
       notify        => [ Exec['cobbler_sync'], Service['cobblerd'] ],
       owner         => root, group => 0, mode => 0755;
+
+    '/var/lib/tftpboot':
+      require   => Package['cobbler'],
+      ensure    => directory,
+      before    => Service['cobblerd'],
+      owner     => root, group => 0, mode => 0644;
   }
 
   exec{'cobbler_sync':
